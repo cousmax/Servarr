@@ -79,16 +79,16 @@ In each *arr application:
 2. **Add Remote Path Mapping**:
    - **Host**: `nzbget`
    - **Remote Path**: `/downloads/complete/[category]`
-   - **Local Path**: `/data/local-storage/usenet/complete/[category]`
+   - **Local Path**: `/data/media/usenet/complete/[category]`
 
 Example mappings:
-- Remote: `/downloads/complete/movies` → Local: `/data/local-storage/usenet/complete/movies`
-- Remote: `/downloads/complete/tv` → Local: `/data/local-storage/usenet/complete/tv`
+- Remote: `/downloads/complete/movies` → Local: `/data/media/usenet/complete/movies`
+- Remote: `/downloads/complete/tv` → Local: `/data/media/usenet/complete/tv`
 
 ## Folder Structure
 
 ```
-./local-storage/usenet/     # Local storage (due to NFS permission issues)
+/mnt/media/usenet/         # NFS mounted storage from TrueNAS (10.84.2.60)
 ├── complete/              # Completed downloads (moved by *arr apps)
 │   ├── movies/           # Radarr picks up movies here
 │   ├── tv/               # Sonarr picks up TV shows here
@@ -99,7 +99,7 @@ Example mappings:
 └── intermediate/         # NZBGet working directory
 ```
 
-**Note**: NZBGet uses local storage instead of NFS due to permission restrictions on the TrueNAS mount.
+**Note**: NZBGet now uses NFS-mounted storage from TrueNAS for better integration and shared access across the stack.
 
 ## Popular Usenet Providers
 

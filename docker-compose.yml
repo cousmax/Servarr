@@ -113,8 +113,8 @@ services:
       - TZ=America/New_York
     volumes:
       - ./config/nzbget:/config
-      - ./local-storage/usenet:/downloads
-      - ./local-storage/usenet/intermediate:/intermediate-dir
+      - /mnt/media/usenet:/downloads
+      - /mnt/media/usenet/intermediate:/intermediate-dir
     network_mode: "service:gluetun"
     restart: unless-stopped
     depends_on:
@@ -170,8 +170,8 @@ services:
       - WIREGUARD_ADDRESSES=${WIREGUARD_ADDRESSES}
       - WIREGUARD_ENDPOINT_IP=${WIREGUARD_ENDPOINT_IP}
       - WIREGUARD_ENDPOINT_PORT=${WIREGUARD_ENDPOINT_PORT}
-      - SERVER_COUNTRIES=${SERVER_COUNTRIES}
-      - SERVER_CITIES=${SERVER_CITIES}
+      # - SERVER_COUNTRIES=${SERVER_COUNTRIES}  # Using specific endpoint instead
+      # - SERVER_CITIES=${SERVER_CITIES}        # Using specific endpoint instead
       - HEALTH_VPN_DURATION_INITIAL=${HEALTH_VPN_DURATION_INITIAL}
       - TZ=${TZ:-America/New_York}
     volumes:

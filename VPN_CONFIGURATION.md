@@ -67,7 +67,7 @@ These services route through the Gluetun VPN tunnel:
 - **Web UI**: http://localhost:6789 (through VPN)
 - **Purpose**: Usenet download client
 - **Network**: Uses Gluetun container network
-- **Storage**: Uses local ./local-storage/usenet/ (NFS permissions workaround)
+- **Storage**: Uses NFS mount /mnt/media/usenet/ (successfully integrated)
 
 ## Prowlarr (VPN Protected)
 - **Web UI**: http://localhost:9696 (through VPN)

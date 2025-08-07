@@ -53,26 +53,18 @@ A complete media automation stack using Docker Compose, configured with TRASHgui
 │   ├── music/             # Lidarr music
 │   ├── books/             # Readarr books
 │   └── audiobooks/        # Readarr audiobooks
-└── torrents/              # Torrent downloads
-    ├── movies/            # Movie downloads
-    ├── tv/                # TV downloads
-    ├── music/             # Music downloads
-    ├── books/             # Book downloads
-    ├── audiobooks/        # Audiobook downloads
-    ├── incomplete/        # Active torrents
-    └── watch/             # Watch folder
-```
-
-### Local Storage (Temporary)
-```
-./local-storage/
-└── usenet/                # NZBGet downloads (local due to NFS permissions)
+├── torrents/              # Torrent downloads
+│   ├── movies/            # Movie downloads
+│   ├── tv/                # TV downloads
+│   ├── music/             # Music downloads
+│   ├── books/             # Book downloads
+│   ├── audiobooks/        # Audiobook downloads
+│   ├── incomplete/        # Active torrents
+│   └── watch/             # Watch folder
+└── usenet/                # NZBGet downloads (now using NFS)
     ├── complete/          # Completed downloads
     ├── incomplete/        # Active downloads
     └── intermediate/      # Processing directory
-```
-    ├── incomplete/        # Active downloads
-    └── watch/             # Manual torrent drops
 ```
 
 ## 🐳 Included Services

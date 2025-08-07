@@ -44,7 +44,7 @@ Internet
 - **Media Storage**: NFS mount from TrueNAS (10.84.2.60:/mnt/Pool1/MediaData) → `/mnt/media`
 - **Download Storage**: 
   - **Torrents**: NFS mount → `/mnt/media/torrents/`
-  - **Usenet**: Local storage → `./local-storage/usenet/` (NFS permissions workaround)
+  - **Usenet**: NFS mount → `/mnt/media/usenet/` (successfully integrated)
 - **Configuration**: Local directories → `./config/[service-name]/`
 
 ### TRASHguides Folder Structure
