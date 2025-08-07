@@ -1,0 +1,38 @@
+# .gitignore for *arr Stack
+
+# Environment files
+.env
+
+# Configuration directories (contain sensitive data)
+config/
+backups/
+
+# Logs
+*.log
+logs/
+
+# Temporary files
+*.tmp
+*.temp
+
+# OS generated files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# IDE files
+.vscode/settings.json
+.idea/
+*.swp
+*.swo
+
+# Docker
+.docker/
+
+# Backup files
+*.bak
+*.backup
