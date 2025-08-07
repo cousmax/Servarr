@@ -102,6 +102,7 @@ A complete media automation stack using Docker Compose, configured with TRASHgui
 ./manage.sh logs [app]     # View logs
 ./manage.sh update         # Update containers
 ./manage.sh urls           # Show all URLs
+./manage.sh vpn-status     # Check VPN connection status
 
 # Maintenance
 ./manage.sh backup         # Backup configs
@@ -146,6 +147,28 @@ A complete media automation stack using Docker Compose, configured with TRASHgui
 - Consider using reverse proxy for external access
 - Configure firewall rules appropriately
 - Regularly update containers with `./manage.sh update`
+
+## 📊 VPN Monitoring
+
+Monitor your AirVPN connection status:
+
+```bash
+# Full VPN status check (recommended)
+./check-vpn.sh
+
+# Quick commands via manage script
+./manage.sh vpn-status
+
+# Get only specific info
+./check-vpn.sh --ip          # Show current IP
+./check-vpn.sh --status      # Show connection status
+./check-vpn.sh --location    # Show location details
+```
+
+**Expected VPN Status:**
+- ✅ **Protected**: Download clients route through AirVPN
+- 🌐 **Location**: Shows VPN server location (not your real location)
+- 🔒 **Encryption**: All torrent/usenet traffic encrypted
 
 ## 🔄 Updates
 

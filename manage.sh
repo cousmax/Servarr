@@ -30,6 +30,7 @@ show_help() {
     echo "  mount-check   Check NFS mount status"
     echo "  fix-perms     Fix file permissions"
     echo "  urls          Show all service URLs"
+    echo "  vpn-status    Check VPN connection status"
     echo ""
     echo "Examples:"
     echo "  ./manage.sh start"
@@ -126,6 +127,14 @@ case "$1" in
         echo "Jellyseerr:   http://localhost:5055"
         echo "Notifiarr:    http://localhost:5454"
         echo "Flaresolverr: http://localhost:8191"
+        ;;
+    vpn-status)
+        echo -e "${BLUE}Checking VPN status...${NC}"
+        if [ -f "./check-vpn.sh" ]; then
+            ./check-vpn.sh
+        else
+            echo -e "${RED}✗ check-vpn.sh script not found${NC}"
+        fi
         ;;
     *)
         show_help
