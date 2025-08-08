@@ -1,9 +1,9 @@
 ---
 # *arr Stack Docker Compose Configuration
-# Updated for working AirVPN configuration
+# Updated to remove Gluetun - VPN routing handled by router
 
 services:
-  # Prowlarr - Indexer manager (through VPN)
+  # Prowlarr - Indexer manager
   prowlarr:
     image: lscr.io/linuxserver/prowlarr:latest
     container_name: prowlarr
@@ -13,10 +13,9 @@ services:
       - TZ=America/New_York
     volumes:
       - ./config/prowlarr:/config
-    network_mode: "service:gluetun"
+    ports:
+      - "9696:9696"
     restart: unless-stopped
-    depends_on:
-      - gluetun
 
   # Sonarr - TV Series management
   sonarr:
@@ -32,8 +31,6 @@ services:
     ports:
       - "8989:8989"
     restart: unless-stopped
-    depends_on:
-      - gluetun
 
   # Radarr - Movie management
   radarr:
@@ -49,8 +46,6 @@ services:
     ports:
       - "7878:7878"
     restart: unless-stopped
-    depends_on:
-      - gluetun
 
   # Lidarr - Music management
   lidarr:
@@ -66,8 +61,6 @@ services:
     ports:
       - "8686:8686"
     restart: unless-stopped
-    depends_on:
-      - gluetun
 
   # Readarr - Book management (using ich777 image for amd64 support)
   readarr:
@@ -83,10 +76,8 @@ services:
     ports:
       - "8787:8787"
     restart: unless-stopped
-    depends_on:
-      - gluetun
 
-  # qBittorrent - Download client (through VPN)
+  # qBittorrent - Download client
   qbittorrent:
     image: lscr.io/linuxserver/qbittorrent:latest
     container_name: qbittorrent
@@ -98,12 +89,13 @@ services:
     volumes:
       - ./config/qbittorrent:/config
       - /mnt/media/torrents:/data/torrents
-    network_mode: "service:gluetun"
+    ports:
+      - "8080:8080"
+      - "6881:6881"
+      - "6881:6881/udp"
     restart: unless-stopped
-    depends_on:
-      - gluetun
 
-  # NZBGet - Usenet download client (through VPN)
+  # NZBGet - Usenet download client
   nzbget:
     image: lscr.io/linuxserver/nzbget:latest
     container_name: nzbget
@@ -115,10 +107,9 @@ services:
       - ./config/nzbget:/config
       - /mnt/media/usenet:/downloads
       - /mnt/media/usenet/intermediate:/intermediate-dir
-    network_mode: "service:gluetun"
+    ports:
+      - "6789:6789"
     restart: unless-stopped
-    depends_on:
-      - gluetun
 
   # Bazarr - Subtitle management
   bazarr:
@@ -150,38 +141,6 @@ services:
       - ./config/notifiarr:/config
     ports:
       - "5454:5454"
-    restart: unless-stopped
-
-  # Gluetun - VPN client
-  gluetun:
-    image: qmcgaw/gluetun:latest
-    container_name: gluetun
-    cap_add:
-      - NET_ADMIN
-    devices:
-      - /dev/net/tun:/dev/net/tun
-    environment:
-      - VPN_SERVICE_PROVIDER=${VPN_SERVICE_PROVIDER}
-      - VPN_TYPE=${VPN_TYPE}
-      - FIREWALL_VPN_INPUT_PORTS=${FIREWALL_VPN_INPUT_PORTS}
-      - WIREGUARD_PUBLIC_KEY=${WIREGUARD_PUBLIC_KEY}
-      - WIREGUARD_PRIVATE_KEY=${WIREGUARD_PRIVATE_KEY}
-      - WIREGUARD_PRESHARED_KEY=${WIREGUARD_PRESHARED_KEY}
-      - WIREGUARD_ADDRESSES=${WIREGUARD_ADDRESSES}
-      - WIREGUARD_ENDPOINT_IP=${WIREGUARD_ENDPOINT_IP}
-      - WIREGUARD_ENDPOINT_PORT=${WIREGUARD_ENDPOINT_PORT}
-      # - SERVER_COUNTRIES=${SERVER_COUNTRIES}  # Using specific endpoint instead
-      # - SERVER_CITIES=${SERVER_CITIES}        # Using specific endpoint instead
-      - HEALTH_VPN_DURATION_INITIAL=${HEALTH_VPN_DURATION_INITIAL}
-      - TZ=${TZ:-America/New_York}
-    volumes:
-      - ./config/gluetun:/gluetun
-    ports:
-      - "9696:9696"  # Prowlarr through VPN
-      - "8080:8080"  # qBittorrent through VPN
-      - "6881:6881"  # qBittorrent listen port
-      - "6881:6881/udp"
-      - "6789:6789"  # NZBGet through VPN
     restart: unless-stopped
 
   # Jellyseerr - Media request management for Jellyfin

@@ -30,7 +30,6 @@ show_help() {
     echo "  mount-check   Check NFS mount status"
     echo "  fix-perms     Fix file permissions"
     echo "  urls          Show all service URLs"
-    echo "  vpn-status    Check VPN connection status"
     echo ""
     echo "Examples:"
     echo "  ./manage.sh start"
@@ -116,25 +115,17 @@ case "$1" in
         ;;
     urls)
         echo -e "${BLUE}Service URLs:${NC}"
-        echo "Prowlarr:     http://localhost:9696 (via VPN)"
+        echo "Prowlarr:     http://localhost:9696"
         echo "Sonarr:       http://localhost:8989"
         echo "Radarr:       http://localhost:7878"
         echo "Lidarr:       http://localhost:8686"
         echo "Readarr:      http://localhost:8787"
-        echo "qBittorrent:  http://localhost:8080 (via VPN)"
-        echo "NZBGet:       http://localhost:6789 (via VPN)"
+        echo "qBittorrent:  http://localhost:8080"
+        echo "NZBGet:       http://localhost:6789"
         echo "Bazarr:       http://localhost:6767"
         echo "Jellyseerr:   http://localhost:5055"
         echo "Notifiarr:    http://localhost:5454"
         echo "Flaresolverr: http://localhost:8191"
-        ;;
-    vpn-status)
-        echo -e "${BLUE}Checking VPN status...${NC}"
-        if [ -f "./check-vpn.sh" ]; then
-            ./check-vpn.sh
-        else
-            echo -e "${RED}✗ check-vpn.sh script not found${NC}"
-        fi
         ;;
     *)
         show_help

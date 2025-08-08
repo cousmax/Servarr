@@ -4,7 +4,7 @@ A complete media automation stack using Docker Compose, configured with TRASHgui
 
 ## ✅ Current Status
 - **Docker Stack**: ✅ Working
-- **AirVPN Connection**: ✅ Connected (Sweden server)
+- **VPN Routing**: ✅ Handled by router
 - **NFS Storage**: ✅ Mounted from TrueNAS (10.84.2.60)
 - **All Services**: ✅ Running and accessible
 
@@ -27,10 +27,10 @@ A complete media automation stack using Docker Compose, configured with TRASHgui
 
 ## 🌐 Service Access
 
-### VPN-Protected Services (AirVPN)
-- **Prowlarr**: http://localhost:9696 🔒 (Indexer management)
-- **qBittorrent**: http://localhost:8080 🔒 (Torrent client)  
-- **NZBGet**: http://localhost:6789 🔒 (Usenet client)
+### Services (Router-based VPN)
+- **Prowlarr**: http://localhost:9696 (Indexer management)
+- **qBittorrent**: http://localhost:8080 (Torrent client)  
+- **NZBGet**: http://localhost:6789 (Usenet client)
 
 ### Direct Access Services
 - **Sonarr**: http://localhost:8989 (TV Shows)
@@ -76,13 +76,12 @@ A complete media automation stack using Docker Compose, configured with TRASHgui
 | Radarr | 7878 | Movie automation |
 | Lidarr | 8686 | Music automation |
 | Readarr | 8787 | Book automation |
-| qBittorrent | 8080 | Torrent client (via VPN) |
+| qBittorrent | 8080 | Torrent client |
 | NZBGet | 6789 | Usenet client |
 | Bazarr | 6767 | Subtitle management |
 | Jellyseerr | 5055 | Media request management |
 | Notifiarr | 5454 | Notification system |
 | Flaresolverr | 8191 | Cloudflare bypass |
-| Gluetun | - | VPN client for qBittorrent |
 
 ## 🛠️ Management Commands
 
@@ -140,29 +139,7 @@ A complete media automation stack using Docker Compose, configured with TRASHgui
 - Configure firewall rules appropriately
 - Regularly update containers with `./manage.sh update`
 
-## 📊 VPN Monitoring
-
-Monitor your AirVPN connection status:
-
-```bash
-# Full VPN status check (recommended)
-./check-vpn.sh
-
-# Quick commands via manage script
-./manage.sh vpn-status
-
-# Get only specific info
-./check-vpn.sh --ip          # Show current IP
-./check-vpn.sh --status      # Show connection status
-./check-vpn.sh --location    # Show location details
-```
-
-**Expected VPN Status:**
-- ✅ **Protected**: Download clients route through AirVPN
-- 🌐 **Location**: Shows VPN server location (not your real location)
-- 🔒 **Encryption**: All torrent/usenet traffic encrypted
-
-## 🔄 Updates
+##  Updates
 
 ```bash
 # Update all containers
